@@ -1,7 +1,6 @@
 ; Exercício G
 
 
-
 .start:
 	; Definição das variáveis
 	MOV A, 0

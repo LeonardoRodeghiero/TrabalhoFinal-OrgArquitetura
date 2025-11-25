@@ -1,14 +1,10 @@
 ; Exercício D
 
-
-
-
 .start:
 	; Definição das variáveis
 	MOV A, 4
 	MOV B, 2
 	MOV C, 2
-
 
 
 	ADD A, B ; A + B

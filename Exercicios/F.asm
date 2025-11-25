@@ -1,8 +1,5 @@
 ; Exercício F
 
-
-
-
 .start:
 	; Definição das variáveis
 	MOV A, 4
