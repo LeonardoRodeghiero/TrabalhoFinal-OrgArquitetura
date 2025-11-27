@@ -1,67 +1,121 @@
 ; Exercício H
 
 ; OBSERVAÇÃO
-; os valores dos vetores estão nos endereços de memória.
-; Endereços do VetorA: 80(pos 0), 81(pos 1), 82(pos 2)
-; Endereços do VetorB: 90(pos 0), 91(pos 1), 92(pos 2)
-; Endereços do VetorC: 100(pos 0), 101(pos 1), 102(pos 2)
-
-.start:
-	; Definição dos elementos dos vetores nos endereços de    
-	; memória
-	MOV [80], 1
-	MOV [81], 2
-	MOV [82], 3
-
-	MOV [90], 3
-	MOV [91], 2
-	MOV [92], 1
-
-	MOV [100], 0
-	MOV [101], 0
-	MOV [102], 0
-
-	MOV D, 0
+; Para se situar melhor nos valores da memória
+; Nesse código, as posições vão: 
+; VetorA: de 2 até 4
+; VetorB: de 6 até 8
+; VetorC: de 10 até 12
+; Lembrando que a memória começa em 0
 
 
-.for_cond:
+
+; Definição dos vetores
+	JMP inicio
+vetorA: DB 1
+	DB 2
+	DB 3
+enderA: DB 0
+
+vetorB: DB 3
+	DB 2
+	DB 1
+enderB: DB 0
+
+vetorC: DB 0
+	DB 0
+	DB 0
+enderC: DB 0
+
+
+inicio:
+	MOV D, 0 ; Limpa D
+
+	MOV B, vetorA ; move para o reg B a posição 1 do vetorA na   
+; 		        memória
+
+	MOV [enderA], B ; move a posição 1 do vetor A na memória 	
+; 			  para a posição da memória do enderA  		                             				  		 			 			                               	              		
+
+
+
+
+
+	MOV B, vetorB ; move para o reg B a posição 1 do vetorB na   
+; 		        memória
+
+	MOV [enderB], B ; move a posição 1 do vetor B na memória 	
+; 			  para a posição da memória do enderB  		                             				  		 			 			                               	              		
+
+
+
+
+
+	MOV B, vetorC ; move para o reg C a posição 1 do vetorC na   
+; 		        memória
+
+
+	MOV [enderC], B ; move a posição 1 do vetor C na memória  					 ;  		          para a posição da memória do enderC 		                             				  		 			 			                               	              		
+
+	
+	MOV B, 0 ; Limpa B
+
+
+
+for_cond:
 	CMP D, 3 ; compara D com 3
 	JZ .fim ; se a flag Z virar TRUE, pula para o fim
+	INC D ; Faz D++
+
+	JMP loop ; se a flag Z continuar FALSE, pula para o loop
 
 
-	MOV A, 80 ; move o endereço pro reg A
-	ADD A, D ; soma com o contador para ter a posição certa
-
-	MOV B, 90 ; move o endereço pro reg B
-	ADD B, D ; soma com o contador para ter a posição certa
-
-	MOV C, 100 ; move o endereço pro reg C
-	ADD C, D ; soma com o contador para ter a posição certa
-
-	JMP .loop ; se a flag Z continuar FALSE, pula para o loop
-
-
-.loop:
-	; move para o reg A o valor que ta no endereco do reg A
-	MOV A, [A] 
-
-
-	; soma o valor que estava no endereco de A com o valor que 
-	; está no endereço de B
-	ADD A, [B]
-
-
-	; Move o resultado da soma para o endereço de C
-	MOV [C], A
-
-
-	INC D ; faz D++
-	JMP .for_cond ; pula para verificar a condição
+loop:
 	
+	MOV B, [enderA] ; Move para o reg B o valor armazenado no 					;                         enderA, que é a posição atual do vetor na                        ;                         memória
+
+	MOV A, [B] ; Move o valor armazenado na posição da memória 		
+;                    do reg B, que é a posição atual do vetorA
+	
+	MOV B, [enderB] ; Move para o reg B o valor armazenado no 
+;                         enderB, que é a posição atual do vetor na 
+;                         memória
+
+	ADD A, [B] ; Soma o valor da posição na memória, armazenado 
+;                    no reg B com o reg A, que é o valor atual do 
+;                    vetorA, já salvo anteriormente
+
+
+	MOV B, [enderC] ; Move pro reg B, o valor salvo no enderC,  
+;                         que é a posição atual do vetorC
+
+	MOV [B], A ; Move para a posição atual do vetorC  na
+;                    memória, salvo no reg B, o resultado da soma                      
+;                    feita anteriormente, entre a posição atual do 
+;                    vetorA e VetorB
+                    
+
+
+	MOV C, [enderA] ; Move o valor salvo no enderA para o reg C
+	INC C ; Faz C++
+	MOV [enderA], C ; Move para o valor de enderA, o resultado
+
+
+	MOV C, [enderB] ; Move o valor salvo no enderB para o reg C
+	INC C ; Faz C++
+	MOV [enderB], C ; Move para o valor de enderB, o resultado
+
+
+	MOV C, [enderC] ; Move o valor salvo no enderC para o reg C
+	INC C ; Faz C++
+	MOV [enderC], C ; Move para o valor de enderC, o resultado
+
+
+	JMP for_cond ; Pula para verificar a condição
+
 
 .fim:
 	MOV A, 0 ; Limpa A
 	MOV B, 0 ; Limpa B
 	MOV C, 0 ; Limpa C
-
 	HLT ; encerra

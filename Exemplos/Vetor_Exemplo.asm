@@ -1,0 +1,20 @@
+
+	JMP inicio
+vetor: 	DB 11
+	DB 22
+	DB 33
+	DB 44
+ender: 	DB 0
+
+inicio:
+	MOV D, 0
+	MOV C, 0
+	MOV B, [vetor]
+	MOV [ender], B
+	ADD D, [ender]
+	INC C
+	MOV B, [ender]
+	ADD B, C
+	MOV [ender], B
+	ADD D, [ender]
+	hlt
